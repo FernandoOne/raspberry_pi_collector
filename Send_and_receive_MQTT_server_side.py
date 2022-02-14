@@ -20,14 +20,31 @@ def main():
 	client.on_connect = on_connect
 	client.on_message = on_message
 	client.connect(host='127.0.0.1', port=1883)
-	#client.loop_forever()
+	client.loop_start()
 	
 	q=0
 	while 1:
-		client.publish("actions/", "Dataso", 0)
-		print("Dataso" + str(q))
-		q=q+1
-		time.sleep(5)
+
+		print("Enter an action:")
+		
+		key = input()
+
+		if key == "1":
+
+			client.publish("actions/", "FORM_NETWORK", 0)
+
+		if key == "2":
+
+			client.publish("actions/", "OPEN_NETWORK", 0)
+
+		if key == "3":
+
+			client.publish("actions/", "CLOSE_NETWORK", 0)
+
+		if key == "4":
+
+			Interval = "0000900"
+			client.publish("actions/", "SET_REPORT_INTERVAL" + "," + Interval, 0)
 
 if __name__ == '__main__':
 	main()

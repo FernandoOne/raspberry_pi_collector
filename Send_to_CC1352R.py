@@ -9,7 +9,7 @@ ENTER_CHARACTER = b'\r'
 
 def writeSerialPort(character, serialPort):
     serialPort.write(character)
-    time.sleep(0.05)
+    #time.sleep(0.05)
 
 class menuNavigation:
     def __init__(self):
@@ -56,25 +56,25 @@ class menuNavigation:
         self.EndOfStep2String = string
 
     def sendAction(self, action, actionParameter=""):
-        if action == "FORM_NETWORK":
+        if "FORM_NETWORK" in action:
             self.setAction("FORM_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       FORM NWK      >")
-        elif action == "OPEN_NETWORK":
+        elif "OPEN_NETWORK" in action:
             self.setAction("OPEN_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       OPEN NWK      >")
-        elif action == "CLOSE_NETWORK":
+        elif "CLOSE_NETWORK" in action:
             self.setAction("CLOSE_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       CLOSE NWK     >")
-        elif action == "SET_REPORT_INTERVAL":
+        elif "SET_REPORT_INTERVAL" in action:
             self.setAction("SET_REPORT_INTERVAL")
             self.setActionParameter(actionParameter)
             self.setActionType("Interceptable")
@@ -84,7 +84,7 @@ class menuNavigation:
             return
         self.setSendActionFlag(True)
         self.setAlreadySentFlag(False) 
-        self.setMenuStep(-2)
+        self.setMenuStep(0)
 
     def processWriting(self, serialPort):
         if self.getActionType() == "Normal":
