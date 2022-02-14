@@ -3,8 +3,6 @@
 import serial
 from datetime import datetime
 
-import time
-
 from Send_to_CC1352R import *
 
 serialPort = serial.Serial(port="COM7", baudrate=115200, bytesize=8, timeout=0.01, stopbits=serial.STOPBITS_ONE)
@@ -29,25 +27,39 @@ client.on_disconnect = on_disconnect
 client.connect(host='127.0.0.1', port=1883)
 
 #Main script
-
-action = "Form network"
-
 def main():
-
-    sendDataFlag = "False"
-    menuStep = "0"
-    alreadySent = "False"
 
     serialString = ""  # Used to hold data coming over UART
     while 1:
 
-        data = OPEN_NETWORK
-        sendDataFlag = "True"
+        #input()
 
-        if sendDataFlag == "True":
-            if alreadySent == "False":
-                menuStep = processDataToSend(data, menuStep, serialPort)      
-                alreadySent = "True"
+        if Menu.getSendActionFlag() == False:
+
+            print("Ingrese una acción:")
+
+            key = input()
+
+            if key == "1":
+
+                Menu.sendAction("FORM_NETWORK")
+            
+            if key == "2":
+
+                Menu.sendAction("OPEN_NETWORK")
+
+            if key == "3":
+
+                Menu.sendAction("CLOSE_NETWORK")  
+
+            if key == "4":
+
+                Menu.sendAction("SET_REPORT_INTERVAL", b'\033[C') 
+
+
+        if Menu.getSendActionFlag() == True:
+            if Menu.getAlreadySentFlag() == False:
+                Menu.processWriting(serialPort)
 
         # Wait until there is data waiting in the serial buffer
         while serialPort.in_waiting > 0:
@@ -59,22 +71,16 @@ def main():
 
                 outputString = serialString.decode("Ascii")
 
-                print(outputString)
-
-                #time.sleep(0.05)              
+                print(outputString)         
     
-                if menuStep != "4":
-                    if "<   NETWORK ACTIONS   >" in outputString:
-                        menuStep = "1"
-
-                    if "<       OPEN NWK      >" in outputString:
-                        menuStep = "3"
+                if Menu.getSendActionFlag() == True:
+                    if Menu.getEndOfStep0String() in outputString:
+                        Menu.setMenuStep(1)
+                    if Menu.getEndOfStep2String() in outputString:
+                        Menu.setMenuStep(3)
+                Menu.setAlreadySentFlag(False)
 
                 outputString = ""
-
-                print(outputString)
-                    
-                alreadySent = "False"
 
             except:
                 pass
