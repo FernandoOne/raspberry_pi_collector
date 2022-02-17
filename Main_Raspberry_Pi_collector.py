@@ -1,13 +1,15 @@
+from datetime import datetime
+import time
+
+########################################################################
 #Initialize the serial port
 
 import serial
-from datetime import datetime
-
-import time
 
 serialPort = serial.Serial(port="COM7", baudrate=115200, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
 
-#Initialize MQTT communication
+########################################################################
+#MQTT communication
 
 import paho.mqtt.client as mqtt
 
@@ -26,6 +28,7 @@ client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.connect(host='127.0.0.1', port=1883)
 
+########################################################################
 #Main script
 
 # def main():
