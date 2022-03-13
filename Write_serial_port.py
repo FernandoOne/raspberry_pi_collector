@@ -46,27 +46,27 @@ def main():
     serialString = ""  # Used to hold data coming over UART
     while 1:
 
-        # if Menu.getSendActionFlag() == False:
+        if Menu.getSendActionFlag() == False:
 
-        #     print("Ingrese una acción:")
+            print("Ingrese una acción:")
 
-        #     key = input()
+            key = input()
 
-        #     if key == "1":
+            if key == "1":
 
-        #         Menu.sendAction("FORM_NETWORK")
+                Menu.sendAction("FORM_NETWORK")
             
-        #     if key == "2":
+            if key == "2":
 
-        #         Menu.sendAction("OPEN_NETWORK")
+                Menu.sendAction("OPEN_NETWORK")
 
-        #     if key == "3":
+            if key == "3":
 
-        #         Menu.sendAction("CLOSE_NETWORK")  
+                Menu.sendAction("CLOSE_NETWORK")  
 
-        #     if key == "4":
+            if key == "4":
 
-        #         Menu.sendAction("SET_REPORT_INTERVAL", b'\033[C') 
+                Menu.sendAction("SET_REPORT_INTERVAL", "00009000") 
 
         if Menu.getSendActionFlag() == True:
             if Menu.getAlreadySentFlag() == False:
@@ -82,14 +82,10 @@ def main():
 
                 outputString = serialString.decode("Ascii")
 
-                #print(outputString)         
+                print(outputString)         
 
                 if Menu.getSendActionFlag() == True:
-                    if Menu.getEndOfStep0String() in outputString:
-                        Menu.setMenuStep(1)
-                    if Menu.getEndOfStep2String() in outputString:
-                        Menu.setMenuStep(3)
-                Menu.setAlreadySentFlag(False)
+                    Menu.postProcessWriting(outputString)
 
                 outputString = ""
 
