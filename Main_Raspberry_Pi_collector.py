@@ -1,11 +1,17 @@
 import time
+import platform
 
 ########################################################################
 #Initialize the serial port
 
 import serial
 
-serialPort = serial.Serial(port="COM7", baudrate=115200, bytesize=8, timeout=0.01, stopbits=serial.STOPBITS_ONE)
+if platform.system() == "Windows":
+    portName = "COM7"
+elif platform.system() == "Linux":
+    portName = "/dev/ttyACM0"
+
+serialPort = serial.Serial(port=portName, baudrate=115200, bytesize=8, timeout=0.01, stopbits=serial.STOPBITS_ONE)
 
 #Custom functions to communicate with the board
 
@@ -79,6 +85,7 @@ def main():
                         client.connect(host='127.0.0.1', port=1883)
                     client.publish("sensors_data/", sensorData, 1)
                     time.sleep(0.05)
+                    print(sensorData)
 
                 #Process data from the menus
                 if menu.getSendActionFlag() == True:
