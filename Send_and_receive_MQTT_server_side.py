@@ -22,7 +22,6 @@ def main():
 	client.connect(host='127.0.0.1', port=1883)
 	client.loop_start()
 	
-	q=0
 	while 1:
 
 		print("Enter an action:")
@@ -43,8 +42,13 @@ def main():
 
 		if key == "4":
 
-			Interval = "0000900"
+			Interval = "00040000"
 			client.publish("actions/", "SET_REPORT_INTERVAL" + "," + Interval, 0)
+
+		if key == "5":
+
+			Sensor = "0001"
+			client.publish("actions/", "SELECT_SENSOR" + "," + Sensor, 0)			
 
 if __name__ == '__main__':
 	main()

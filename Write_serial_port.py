@@ -5,6 +5,8 @@ from datetime import datetime
 
 from Send_to_CC1352R import *
 
+menu = menuNavigation()
+
 serialPort = serial.Serial(port="COM7", baudrate=115200, bytesize=8, timeout=0.01, stopbits=serial.STOPBITS_ONE)
 
 #Initialize MQTT communication
@@ -31,7 +33,7 @@ def on_message(client, userdata, message):
         action = message
         parameter = ""
     print(action)
-    Menu.sendAction(action, parameter)
+    menu.sendAction(action, parameter)
 
 client = mqtt.Client(client_id='RaspberryPi_', clean_session=True)
 client.on_connect = on_connect
@@ -46,7 +48,7 @@ def main():
     serialString = ""  # Used to hold data coming over UART
     while 1:
 
-        if Menu.getSendActionFlag() == False:
+        if menu.getSendActionFlag() == False:
 
             print("Ingrese una acción:")
 
@@ -54,23 +56,23 @@ def main():
 
             if key == "1":
 
-                Menu.sendAction("FORM_NETWORK")
+                menu.sendAction("FORM_NETWORK")
             
             if key == "2":
 
-                Menu.sendAction("OPEN_NETWORK")
+                menu.sendAction("OPEN_NETWORK")
 
             if key == "3":
 
-                Menu.sendAction("CLOSE_NETWORK")  
+                menu.sendAction("CLOSE_NETWORK")  
 
             if key == "4":
 
-                Menu.sendAction("SET_REPORT_INTERVAL", "00009000") 
+                menu.sendAction("SET_REPORT_INTERVAL", "00010000") 
 
-        if Menu.getSendActionFlag() == True:
-            if Menu.getAlreadySentFlag() == False:
-                Menu.processWriting(serialPort)
+        if menu.getSendActionFlag() == True:
+            if menu.getAlreadySentFlag() == False:
+                menu.processWriting(serialPort)
 
         # Wait until there is data waiting in the serial buffer
         while serialPort.in_waiting > 0:
@@ -84,8 +86,8 @@ def main():
 
                 print(outputString)         
 
-                if Menu.getSendActionFlag() == True:
-                    Menu.postProcessWriting(outputString)
+                if menu.getSendActionFlag() == True:
+                    menu.postProcessWriting(outputString)
 
                 outputString = ""
 

@@ -2,8 +2,6 @@ import serial
 import time
 
 #Macros for the characters used to navigate the menu
-BACK_CHARACTER = b'\033[H'
-LEFT_CHARACTER = b'\033[D'
 RIGHT_CHARACTER = b'\033[C'
 ENTER_CHARACTER = b'\r'
 
@@ -64,7 +62,6 @@ class menuNavigation:
         return self.backCounter
     def increaseBackCounter(self):
         self.backCounter = self.backCounter + 1
-        print("Sumo")
     def resetBackCounter(self):
         self.backCounter = 0 
 
@@ -133,34 +130,33 @@ class menuNavigation:
                 if self.getBackCounter() == 7:
                     self.setMenuStep(0)
                     self.resetBackCounter()
-                Menu.setAlreadySentFlag(True)
-                print("Llegó al step -2")
-                print(self.getBackCounter())
+                self.setAlreadySentFlag(True)
+                print("It reached step -2")
             elif self.getMenuStep() == -1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.resetBackCounter()
                 self.setMenuStep(0)
-                Menu.setAlreadySentFlag(False)
-                print("Llegó al step -1")
+                self.setAlreadySentFlag(False)
+                print("It reached step -1")
             elif self.getMenuStep() == 0:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
-                Menu.setAlreadySentFlag(True)
-                print("Llegó al step 0")
+                self.setAlreadySentFlag(True)
+                print("It reached step 0")
             elif self.getMenuStep() == 1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(2)
-                Menu.setAlreadySentFlag(False)
-                print("Llegó al step 1")
+                self.setAlreadySentFlag(False)
+                print("It reached step 1")
             elif self.getMenuStep() == 2:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
-                Menu.setAlreadySentFlag(True)
-                print("Llegó al step 2")
+                self.setAlreadySentFlag(True)
+                print("It reached step 2")
             elif self.getMenuStep() == 3:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(4)
-                Menu.setAlreadySentFlag(False)
+                self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                print("Llegó al step 3")
+                print("It reached step 3")
             else:
                 pass
         elif self.getActionType() == "Interceptable":
@@ -170,45 +166,44 @@ class menuNavigation:
                 if self.getBackCounter() == 7:
                     self.setMenuStep(0)
                     self.resetBackCounter()
-                Menu.setAlreadySentFlag(True)
-                print("Llegó al step -2")
-                print(self.getBackCounter())
+                self.setAlreadySentFlag(True)
+                print("It reached step -2")
             elif self.getMenuStep() == -1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.resetBackCounter()
                 self.setMenuStep(0)
-                Menu.setAlreadySentFlag(False)
-                print("Llegó al step -1")
+                self.setAlreadySentFlag(False)
+                print("It reached step -1")
             elif self.getMenuStep() == 0:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
-                Menu.setAlreadySentFlag(True)
-                print("Llegó al step 0")
+                self.setAlreadySentFlag(True)
+                print("It reached step 0")
             elif self.getMenuStep() == 1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(2)
-                Menu.setAlreadySentFlag(False)
-                print("Llegó al step 1")
+                self.setAlreadySentFlag(False)
+                print("It reached step 1")
             elif self.getMenuStep() == 2:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
-                Menu.setAlreadySentFlag(True)
-                print("Llegó al step 2")
+                self.setAlreadySentFlag(True)
+                print("It reached step 2")
             elif self.getMenuStep() == 3:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(4)
-                Menu.setAlreadySentFlag(False)
-                print("Llegó al step 3")
+                self.setAlreadySentFlag(False)
+                print("It reached step 3")
             elif self.getMenuStep() == 4:
                 for character in self.getActionParameter():
                     writeSerialPort(bytes(character, 'ascii'), serialPort)
                 self.setMenuStep(5)
-                Menu.setAlreadySentFlag(False)
-                print("Llegó al step 4")
+                self.setAlreadySentFlag(False)
+                print("It reached step 4")
             elif self.getMenuStep() == 5:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(6)
-                Menu.setAlreadySentFlag(False)
+                self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                print("Llegó al step 5")               
+                print("It reached step 5")               
             else:
                 pass   
  
@@ -223,5 +218,3 @@ class menuNavigation:
             if self.getEndOfStep2String() in outputString:
                 self.setMenuStep(3)
         self.setAlreadySentFlag(False)
-
-Menu = menuNavigation()
