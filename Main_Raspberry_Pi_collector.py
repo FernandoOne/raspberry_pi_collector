@@ -11,7 +11,7 @@ if platform.system() == "Windows":
 elif platform.system() == "Linux":
     portName = "/dev/ttyACM0"
 
-serialPort = serial.Serial(port=portName, baudrate=115200, bytesize=8, stopbits=serial.STOPBITS_ONE, timeout=0.01)
+serialPort = serial.Serial(port=portName, baudrate=115200, bytesize=8, timeout=0.01, stopbits=serial.STOPBITS_ONE)
 
 #Custom functions to communicate with the board
 
@@ -69,21 +69,15 @@ def main():
             if menu.getAlreadySentFlag() == False:
                 menu.processWriting(serialPort)
 
-        print("En loop")
-
         # Wait until there is data waiting in the serial buffer
         while serialPort.in_waiting > 0:
 
             # Read data out of the buffer until a carraige return / new line is found.
             serialString = serialPort.readline().decode("Ascii")
 
-            print("En el while")
-
             try:
                 #Get the data from the sensors, if there is any
                 sensorsData = data.processReading(serialString)
-
-                print("11111")
 
                 #Send data to Mosquitto
                 for sensorData in sensorsData:   
@@ -93,18 +87,13 @@ def main():
                     time.sleep(0.05)
                     print(sensorData)
 
-                print("22222")
-
                 #Process data from the menus
                 if menu.getSendActionFlag() == True:
                     menu.postProcessWriting(serialString)
 
                 serialString = ""
             
-                print("33333")
-
             except:
-                print("Entro en la excepcion")
                 serialString = ""
 
 if __name__ == '__main__':
