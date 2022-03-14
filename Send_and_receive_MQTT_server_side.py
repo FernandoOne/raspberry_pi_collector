@@ -42,7 +42,7 @@ def main():
 
 		if key == "4":
 
-			Interval = "00040000"
+			Interval = "00003000"
 			client.publish("actions/", "SET_REPORT_INTERVAL" + "," + Interval, 0)
 
 		if key == "5":
