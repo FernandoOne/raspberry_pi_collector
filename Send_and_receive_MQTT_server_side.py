@@ -41,8 +41,9 @@ def main():
 			client.publish("actions/", "CLOSE_NETWORK", 0)
 
 		if key == "4":
-
-			Interval = "00040000"
+			
+			print("Enter interval:")
+			Interval = input()
 			client.publish("actions/", "SET_REPORT_INTERVAL" + "," + Interval, 0)
 
 		if key == "5":
