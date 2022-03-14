@@ -7,7 +7,7 @@ ENTER_CHARACTER = b'\r'
 
 def writeSerialPort(character, serialPort):
     serialPort.write(character)
-    time.sleep(0.15)
+    time.sleep(0.05)
 
 class menuNavigation:
     def __init__(self):
@@ -203,8 +203,7 @@ class menuNavigation:
                 self.setMenuStep(6)
                 self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                print("It reached step 5")
-                serialPort.reset_output_buffer()       
+                print("It reached step 5")               
             else:
                 pass   
  
