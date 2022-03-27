@@ -32,7 +32,7 @@ def on_connect(client, userdata, flags, rc):
    global flag_connected
    flag_connected = 1
    print('connected (%s)' % client._client_id)
-   client.subscribe(topic='actions_789/', qos=2)
+   client.subscribe(topic='intel_agri/actions', qos=2)
 
 def on_disconnect(client, userdata, rc):
    global flag_connected
@@ -83,7 +83,7 @@ def main():
                 for sensorData in sensorsData:   
                     if flag_connected == 0:
                         client.connect(host='127.0.0.1', port=1883)
-                    client.publish("hum_node_789/", sensorData, 2)
+                    client.publish("intel_agri/sensor_data", sensorData, 2)
                     time.sleep(0.05)
                     print(sensorData)
 
