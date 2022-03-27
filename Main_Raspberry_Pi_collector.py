@@ -28,11 +28,14 @@ import paho.mqtt.client as mqtt
 
 flag_connected = 0
 
+sensorDataMQTTTopic = "intel_agri/sensor_data"
+actionsMQTTTopic = "intel_agri/actions"
+
 def on_connect(client, userdata, flags, rc):
    global flag_connected
    flag_connected = 1
    print('connected (%s)' % client._client_id)
-   client.subscribe(topic='intel_agri/actions', qos=2)
+   client.subscribe(topic=actionsMQTTTopic, qos=2)
 
 def on_disconnect(client, userdata, rc):
    global flag_connected
@@ -83,7 +86,7 @@ def main():
                 for sensorData in sensorsData:   
                     if flag_connected == 0:
                         client.connect(host='127.0.0.1', port=1883)
-                    client.publish("intel_agri/sensor_data", sensorData, 2)
+                    client.publish(sensorDataMQTTTopic, sensorData, 2)
                     time.sleep(0.05)
                     print(sensorData)
 
