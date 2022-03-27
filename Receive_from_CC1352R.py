@@ -1,4 +1,5 @@
 from datetime import datetime
+from Convert_to_JSON import *
 
 class receiveData:
     def __init__(self):
@@ -20,7 +21,9 @@ class receiveData:
             #Get the position where the data from the sensor read finishes
             self.endOfTheSensorData = serialString.find("RSSI", self.endOfTheSensorData) + 8
             #Add time stamp
-            sensorData = sensorData + " Time=" + datetime.now().strftime("%Y/%m/%d-%H:%M:%S")
+            sensorData = sensorData + ", Time=" + datetime.now().strftime("%Y/%m/%d-%H:%M:%S")
+            #Convert data to JSON
+            sensorData = convertSensorDataStringToJSON(sensorData)
             #Append it to the list of sensor data
             sensorsData.append(sensorData)
         return sensorsData
