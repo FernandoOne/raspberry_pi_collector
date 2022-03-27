@@ -18,6 +18,21 @@ Configurar mosquito:
     autosave_on_changes true
     max_queued_messages 10000
 
+    Las siguientes líneas son para que funcione con HiveMQ:
+
+    connection hivemq
+    address b94fa7cf0c0f4fcd91c97460db5c0564.s2.eu.hivemq.cloud:8883
+
+    topic # both 2
+    bridge_cafile /home/pi/Repositories/raspberry_pi_collector/certificates/isrgrootx1.pem
+    remote_username AgriIntel
+    remote_password Qwerty135
+    bridge_protocol_version mqttv311
+    try_private false
+    notifications false
+    bridge_attempt_unsubscribe false
+    bridge_insecure true
+
 Instalar paho-mqtt:
 
     pip install paho-mqtt
