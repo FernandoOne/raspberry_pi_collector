@@ -53,7 +53,7 @@ client = mqtt.Client(client_id='RaspberryPi', clean_session=True)
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_message = on_message
-client.connect(host='127.0.0.1', port=1883)
+client.connect(host='test.mosquitto.org', port=1883)
 client.loop_start()
 
 ########################################################################
@@ -82,7 +82,7 @@ def main():
                 #Send data to Mosquitto
                 for sensorData in sensorsData:   
                     if flag_connected == 0:
-                        client.connect(host='127.0.0.1', port=1883)
+                        client.connect(host='test.mosquitto.org', port=1883)
                     client.publish("hum_node_789/", sensorData, 2)
                     time.sleep(0.05)
                     print(sensorData)

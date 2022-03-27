@@ -50,10 +50,12 @@ def on_message(client, userdata, message):
     menu.sendAction(action, parameter)
 
 client = mqtt.Client(client_id='RaspberryPi', clean_session=True)
+client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLS)
+client.username_pw_set("AgriIntel", "Qwerty135")
 client.on_connect = on_connect
 client.on_disconnect = on_disconnect
 client.on_message = on_message
-client.connect(host='127.0.0.1', port=1883)
+client.connect(host='b94fa7cf0c0f4fcd91c97460db5c0564.s2.eu.hivemq.cloud', port=8883)
 client.loop_start()
 
 ########################################################################
@@ -82,7 +84,7 @@ def main():
                 #Send data to Mosquitto
                 for sensorData in sensorsData:   
                     if flag_connected == 0:
-                        client.connect(host='127.0.0.1', port=1883)
+                        client.connect(host='test.mosquitto.org', port=1883)
                     client.publish("hum_node_789/", sensorData, 2)
                     time.sleep(0.05)
                     print(sensorData)
