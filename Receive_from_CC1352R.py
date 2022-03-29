@@ -38,6 +38,8 @@ def convertSensorDataStringToJSON(dataString):
     dataDictionary = {}
     dataDictionary["Address"] = dataList[1][0]
     dataDictionary["Humidity"] = dataList[3][0]
+    dataDictionary["Report_interval"] = "123"
+    dataDictionary["Battery"] = "456"
     dataDictionary["RSSI"] = dataList[5][0]
     dataDictionary["Time"] = dataList[6][0]
 
