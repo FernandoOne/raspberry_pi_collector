@@ -88,7 +88,7 @@ def main():
                         client.connect(host='127.0.0.1', port=1883)
                     client.publish(sensorDataMQTTTopic, sensorData, 2)
                     time.sleep(0.05)
-                    print(sensorData)
+                    #print(sensorData)
 
                 #Process data from the menus
                 if menu.getSendActionFlag() == True:

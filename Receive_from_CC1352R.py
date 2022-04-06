@@ -22,6 +22,7 @@ class receiveData:
             self.endOfTheSensorData = serialString.find("RSSI", self.endOfTheSensorData) + 8
             #Add time stamp
             sensorData = sensorData + ", Time=" + datetime.now().strftime("%Y/%m/%d-%H:%M:%S")
+            print(sensorData)
             #Convert data to JSON
             sensorData = convertSensorDataStringToJSON(sensorData)
             #Append it to the list of sensor data
@@ -38,10 +39,10 @@ def convertSensorDataStringToJSON(dataString):
     dataDictionary = {}
     dataDictionary["Address"] = dataList[1][0]
     dataDictionary["Humidity"] = dataList[3][0]
-    dataDictionary["Report_interval"] = "123"
-    dataDictionary["Battery"] = "456"
-    dataDictionary["RSSI"] = dataList[5][0]
-    dataDictionary["Time"] = dataList[6][0]
+    dataDictionary["Battery"] = dataList[4][0]
+    dataDictionary["Report_interval"] = [5][0]
+    dataDictionary["RSSI"] = dataList[6][0]
+    dataDictionary["Time"] = dataList[7][0]
 
     dataJSON = json.dumps(dataDictionary, indent = 4)
 
