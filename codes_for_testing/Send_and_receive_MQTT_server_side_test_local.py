@@ -53,7 +53,15 @@ def main():
 
 		if key == "6":
 
-			client.publish("intel_agri/actions", "SEND_TOOGLE", 0)			
+			client.publish("intel_agri/actions", "SEND_TOOGLE", 0)
+
+		if key == "7":
+
+			client.publish("intel_agri/actions", "OPEN_VALVE", 0)
+
+		if key == "8":
+
+			client.publish("intel_agri/actions", "CLOSE_VALVE", 0)				
 
 if __name__ == '__main__':
 	main()

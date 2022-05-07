@@ -22,7 +22,7 @@ class receiveData:
             self.endOfTheSensorData = serialString.find("RSSI", self.endOfTheSensorData) + 8
             #Add time stamp
             sensorData = sensorData + ", Time=" + datetime.now().strftime("%Y/%m/%d-%H:%M:%S")
-            print(sensorData)
+            #print(sensorData)
             #Convert data to JSON
             sensorData = convertSensorDataStringToJSON(sensorData)
             #Append it to the list of sensor data
