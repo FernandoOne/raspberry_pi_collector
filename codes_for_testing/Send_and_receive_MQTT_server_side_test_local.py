@@ -9,7 +9,7 @@ def outputToFile(data):
 
 def on_connect(client, userdata, flags, rc):
 	print('connected (%s)' % client._client_id)
-	client.subscribe(topic='sensors_data/', qos=2)
+	client.subscribe(topic='intel_agri/sensor_data', qos=2)
 
 def on_message(client, userdata, message):
     print(message.payload)
@@ -30,26 +30,30 @@ def main():
 
 		if key == "1":
 
-			client.publish("actions/", "FORM_NETWORK", 0)
+			client.publish("intel_agri/actions", "FORM_NETWORK", 0)
 
 		if key == "2":
 
-			client.publish("actions/", "OPEN_NETWORK", 0)
+			client.publish("intel_agri/actions", "OPEN_NETWORK", 0)
 
 		if key == "3":
 
-			client.publish("actions/", "CLOSE_NETWORK", 0)
+			client.publish("intel_agri/actions", "CLOSE_NETWORK", 0)
 
 		if key == "4":
 			
 			print("Enter interval:")
 			Interval = input()
-			client.publish("actions/", "SET_REPORT_INTERVAL" + "," + Interval, 0)
+			client.publish("intel_agri/actions", "SET_REPORT_INTERVAL" + "," + Interval, 0)
 
 		if key == "5":
 
 			Sensor = "0001"
-			client.publish("actions/", "SELECT_SENSOR" + "," + Sensor, 0)			
+			client.publish("intel_agri/actions", "SELECT_SENSOR" + "," + Sensor, 0)		
+
+		if key == "6":
+
+			client.publish("intel_agri/actions", "SEND_TOOGLE", 0)			
 
 if __name__ == '__main__':
 	main()
