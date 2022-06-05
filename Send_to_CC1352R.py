@@ -169,6 +169,7 @@ class menuNavigation:
                 self.setSendTwoStepsActionFlag(False)
                 self.setSensorSelectedFlag(False)
                 self.sendAction(self.getStepTwoAction(), "", self.getStepTwoActionParameter())
+                print("Llego a " + self.getStepTwoActionParameter())
 
     def processWriting(self, serialPort):
         if self.getActionType() == "Normal":
