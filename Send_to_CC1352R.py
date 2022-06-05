@@ -101,53 +101,53 @@ class menuNavigation:
 
     def sendAction(self, action, actionAdress="", actionParameter=""):
         print(action)
-        if "FORM_NETWORK" in action:
+        if action == "FORM_NETWORK":
             self.setAction("FORM_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       FORM NWK      >")
-        elif "OPEN_NETWORK" in action:
+        elif action == "OPEN_NETWORK":
             self.setAction("OPEN_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       OPEN NWK      >")
-        elif "CLOSE_NETWORK" in action:
+        elif action == "CLOSE_NETWORK":
             self.setAction("CLOSE_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       CLOSE NWK     >")
-        elif "SELECT_SENSOR" in action:
+        elif action == "SELECT_SENSOR":
             print("Llego a esta rrererereputisima parte")
             self.setAction("SELECT_SENSOR")
             self.setActionParameter(actionParameter)
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SELECT SENSOR   >")            
-        elif "SET_REPORT_INTERVAL" in action:
+        elif action == "SET_REPORT_INTERVAL":
             self.setAction("SET_REPORT_INTERVAL")
             self.setActionParameter(actionParameter)
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SET REPORT INTERVAL >")
-        elif "SEND_TOOGLE" in action:
+        elif action == "SEND_TOOGLE":
             self.setAction("SEND_TOOGLE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SEND TOGGLE     >")
-        elif "SEND_DISASSOCIATION" in action:
+        elif action == "SEND_DISASSOCIATION":
             self.setAction("SEND_DISASSOCIATION")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SEND DISASSOCIATION >")
-        elif "OPEN_VALVE" in action:
+        elif action == "OPEN_VALVE":
             self.setAction("OPEN_VALVE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     OPEN VALVE      >")  
-        elif "CLOSE_VALVE" in action:
+        elif action == "CLOSE_VALVE":
             self.setAction("CLOSE_VALVE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
