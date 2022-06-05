@@ -87,9 +87,9 @@ class menuNavigation:
     def getStepTwoAction(self):
         return self.stepTwoAction
     def setStepTwoActionParameter(self, string):
-        self.stepTwoAction = string
+        self.stepTwoActionParameter = string
     def getStepTwoActionParameter(self):
-        return self.stepTwoAction
+        return self.stepTwoActionParameter
 
     def getActionParametersFromJSON(self, actionJSON):
         action = json.loads(actionJSON)

@@ -47,7 +47,7 @@ def main():
 			
 			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Report_interval\": \"00006000\"}"
 
-			print("Enter interval:")
+			#print("Enter interval:")
 			#Interval = input()
 			client.publish("intel_agri/actions", setReportIntervalAction, 0)
 
