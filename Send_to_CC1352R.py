@@ -262,7 +262,9 @@ class menuNavigation:
                 print(self.getAction())
                 print("It reached step 5")
                 if self.getSendTwoStepsActionFlag() == True:
+                    print("Entr[o al if 1")
                     if (self.getSensorSelectedFlag() == False):
+                        print("Entr[o al if 2")
                         self.setSensorSelectedFlag(True)
                         self.sendTwoStepsAction(self.getStepTwoAction())
             else:
