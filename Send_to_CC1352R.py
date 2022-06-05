@@ -120,6 +120,7 @@ class menuNavigation:
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       CLOSE NWK     >")
         elif "SELECT_SENSOR" in action:
+            print("Llego a esta rrererereputisima parte")
             self.setAction("SELECT_SENSOR")
             self.setActionParameter(actionParameter)
             self.setActionType("Interceptable")
