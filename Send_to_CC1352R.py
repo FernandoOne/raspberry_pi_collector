@@ -155,7 +155,6 @@ class menuNavigation:
         elif action == "SELECT_SENSOR_AND_SET_REPORT_INTERVAL":
             self.setSendTwoStepsActionFlag(True)
             print("Llego a esta reputisima parte")
-            print("El valor del flag 2 es " + self.getSendTwoStepsActionFlag())
             self.sendTwoStepsAction(action, actionAdress, actionParameter)                     
         else:
             return
@@ -266,7 +265,6 @@ class menuNavigation:
                 self.setSendActionFlag(False)
                 print(self.getAction())
                 print("It reached step 5")
-                print(self.getSendTwoStepsActionFlag())
                 if self.getSendTwoStepsActionFlag() == True:
                     print("Entr[o al if 1")
                     if (self.getSensorSelectedFlag() == False):
