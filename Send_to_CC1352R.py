@@ -100,6 +100,7 @@ class menuNavigation:
             self.setActionParameter(action['Report_interval'])
 
     def sendAction(self, action, actionAdress="", actionParameter=""):
+        print(action)
         if "FORM_NETWORK" in action:
             self.setAction("FORM_NETWORK")
             self.setActionParameter("")
