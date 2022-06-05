@@ -162,7 +162,7 @@ class menuNavigation:
         self.setAlreadySentFlag(False) 
         self.setMenuStep(-2)
 
-    def sendTwoStepsAction(self, action, actionAdress, actionParameter):
+    def sendTwoStepsAction(self, action, actionAdress="", actionParameter=""):
         if "SELECT_SENSOR_AND_SET_REPORT_INTERVAL" in action:
             if (self.getSensorSelectedFlag() == False):
                 self.setStepTwoAction(action)
