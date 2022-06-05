@@ -153,6 +153,7 @@ class menuNavigation:
             self.setEndOfStep2String("<     CLOSE VALVE     >")
         elif "SELECT_SENSOR_AND_SET_REPORT_INTERVAL" in action:
             self.setSendTwoStepsActionFlag(True)
+            print("Llego a esta reputisima parte")
             print("El valor del flag 2 es " + self.getSendTwoStepsActionFlag())
             self.sendTwoStepsAction(action, actionAdress, actionParameter)                     
         else:
