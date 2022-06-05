@@ -80,8 +80,8 @@ def main():
 
             try:
                 #Debug data received from the collector 
-                serialStringToPrint= serialString.replace("\033", " ", 100)
-                print(serialStringToPrint)
+                #serialStringToPrint= serialString.replace("\033", " ", 100)
+                #print(serialStringToPrint)
 
                 #Get the data from the sensors, if there is any
                 sensorsData = data.processReading(serialString)
