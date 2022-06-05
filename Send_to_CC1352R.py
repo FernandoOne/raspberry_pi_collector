@@ -145,32 +145,32 @@ class menuNavigation:
                     self.setMenuStep(0)
                     self.resetBackCounter()
                 self.setAlreadySentFlag(True)
-                #print("It reached step -2")
+                print("It reached step -2")
             elif self.getMenuStep() == -1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.resetBackCounter()
                 self.setMenuStep(0)
                 self.setAlreadySentFlag(False)
-                #print("It reached step -1")
+                print("It reached step -1")
             elif self.getMenuStep() == 0:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                #print("It reached step 0")
+                print("It reached step 0")
             elif self.getMenuStep() == 1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(2)
                 self.setAlreadySentFlag(False)
-                #rint("It reached step 1")
+                print("It reached step 1")
             elif self.getMenuStep() == 2:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                #print("It reached step 2")
+                print("It reached step 2")
             elif self.getMenuStep() == 3:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(4)
                 self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                #print("It reached step 3")
+                print("It reached step 3")
             else:
                 pass
         elif self.getActionType() == "Interceptable":
@@ -181,43 +181,43 @@ class menuNavigation:
                     self.setMenuStep(0)
                     self.resetBackCounter()
                 self.setAlreadySentFlag(True)
-                #print("It reached step -2")
+                print("It reached step -2")
             elif self.getMenuStep() == -1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.resetBackCounter()
                 self.setMenuStep(0)
                 self.setAlreadySentFlag(False)
-                #print("It reached step -1")
+                print("It reached step -1")
             elif self.getMenuStep() == 0:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                #print("It reached step 0")
+                print("It reached step 0")
             elif self.getMenuStep() == 1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(2)
                 self.setAlreadySentFlag(False)
-                #print("It reached step 1")
+                print("It reached step 1")
             elif self.getMenuStep() == 2:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                #print("It reached step 2")
+                print("It reached step 2")
             elif self.getMenuStep() == 3:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(4)
                 self.setAlreadySentFlag(False)
-                #print("It reached step 3")
+                print("It reached step 3")
             elif self.getMenuStep() == 4:
                 for character in self.getActionParameter():
                     writeSerialPort(bytes(character, 'ascii'), serialPort)
                 self.setMenuStep(5)
                 self.setAlreadySentFlag(False)
-                #print("It reached step 4")
+                print("It reached step 4")
             elif self.getMenuStep() == 5:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(6)
                 self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                #print("It reached step 5")               
+                print("It reached step 5")               
             else:
                 pass   
  
