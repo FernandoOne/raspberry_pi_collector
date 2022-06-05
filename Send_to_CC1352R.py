@@ -13,7 +13,7 @@ def writeSerialPort(character, serialPort):
 class menuNavigation:
     def __init__(self):
         self.action = ""
-        self.actionAdress = ""
+        self.actionAddress = ""
         self.actionParameter = ""
         self.actionType = ""
         self.menuStep = -2
@@ -23,15 +23,19 @@ class menuNavigation:
         self.endOfStep2String = ""
         self.backString = "<      BACK      >"
         self.backCounter = 0
+        self.sendTwoStepsActionFlag = False
+        self.sensorSelectedFlag = False
+        self.stepTwoAction = ""
+        self.stepTwoActionParameter = ""
 
     def getAction(self):
         return self.action
     def setAction(self, string):
         self.action = string
-    def getActionAdress(self):
-        return self.actionAdress
-    def setActionAdress(self, string):
-        self.actionAdress = string        
+    def getActionAddress(self):
+        return self.actionAddress
+    def setActionAddress(self, string):
+        self.actionAddress = string        
     def getActionParameter(self):
         return self.actionParameter
     def setActionParameter(self, string):
@@ -69,17 +73,33 @@ class menuNavigation:
     def increaseBackCounter(self):
         self.backCounter = self.backCounter + 1
     def resetBackCounter(self):
-        self.backCounter = 0 
+        self.backCounter = 0
+    def setSensorSelectedFlag(self, string):
+        self.sensorSelectedFlag = string
+    def getSensorSelectedFlag(self):
+        return self.sensorSelectedFlag
+    def getSendTwoStepsActionFlag(self):
+        return self.sendTwoStepsActionFlag
+    def setSendTwoStepsActionFlag(self, flag):
+        self.sendTwoStepsActionFlag = flag
+    def setStepTwoAction(self, string):
+        self.stepTwoAction = string
+    def getStepTwoAction(self):
+        return self.stepTwoAction
+    def setStepTwoActionParameter(self, string):
+        self.stepTwoAction = string
+    def getStepTwoActionParameter(self):
+        return self.stepTwoAction
 
     def getActionParametersFromJSON(self, actionJSON):
         action = json.loads(actionJSON)
         self.setAction(action['Action_name'])
         if 'Address' in action:
-            self.setActionAdress(action['Address'])
+            self.setActionAddress(action['Address'])
         if 'Report_interval' in action:
             self.setActionParameter(action['Report_interval'])
 
-    def sendAction(self, action, actionParameter=""):
+    def sendAction(self, action, actionAdress="", actionParameter=""):
         if "FORM_NETWORK" in action:
             self.setAction("FORM_NETWORK")
             self.setActionParameter("")
@@ -129,12 +149,26 @@ class menuNavigation:
             self.setAction("CLOSE_VALVE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
-            self.setEndOfStep2String("<     CLOSE VALVE     >")                          
+            self.setEndOfStep2String("<     CLOSE VALVE     >")
+        elif "SELECT_SENSOR_AND_SET_REPORT_INTERVAL" in action:
+            self.setSendTwoStepsActionFlag(True)
+            self.sendTwoStepsAction(action, actionAdress, actionParameter)                     
         else:
             return
         self.setSendActionFlag(True)
         self.setAlreadySentFlag(False) 
         self.setMenuStep(-2)
+
+    def sendTwoStepsAction(self, action, actionAdress, actionParameter):
+        if "SELECT_SENSOR_AND_SET_REPORT_INTERVAL" in action:
+            if (self.getSensorSelectedFlag() == False):
+                self.setStepTwoAction(action)
+                self.setStepTwoActionParameter(actionParameter)
+                self.sendAction("SELECT_SENSOR", "", actionAdress)
+            else:
+                self.setSendTwoStepsActionFlag(False)
+                self.setSensorSelectedFlag(False)
+                self.sendAction(self.getStepTwoAction(), "", self.getStepTwoActionParameter())
 
     def processWriting(self, serialPort):
         if self.getActionType() == "Normal":
@@ -217,7 +251,11 @@ class menuNavigation:
                 self.setMenuStep(6)
                 self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                print("It reached step 5")               
+                print("It reached step 5")
+                if self.getSendTwoStepsActionFlag == True:
+                    if (self.getSensorSelectedFlag() == False):
+                        self.setSensorSelectedFlag(True)
+                        self.sendTwoStepsAction(self.getStepTwoAction())
             else:
                 pass   
  

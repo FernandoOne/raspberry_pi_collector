@@ -45,7 +45,7 @@ def main():
 
 		if key == "4":
 			
-			setReportIntervalAction="{\"Action_name\": \"SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Report_interval\": \"00006000\"}"
+			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Report_interval\": \"00006000\"}"
 
 			print("Enter interval:")
 			#Interval = input()
