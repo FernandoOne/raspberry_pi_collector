@@ -165,6 +165,7 @@ class menuNavigation:
             if (self.getSensorSelectedFlag() == False):
                 self.setStepTwoAction(action)
                 self.setStepTwoActionParameter(actionParameter)
+                print("Llego a esta puta parte")
                 self.sendAction("SELECT_SENSOR", "", actionAdress)
             else:
                 self.setSendTwoStepsActionFlag(False)
