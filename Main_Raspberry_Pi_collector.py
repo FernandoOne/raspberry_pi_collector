@@ -42,7 +42,7 @@ def on_disconnect(client, userdata, rc):
    flag_connected = 0
 
 def on_message(client, userdata, message):
-    message = str(message.payload)
+    message = str(message.payload, encoding='ascii')
     menu.getActionParametersFromJSON(message) 
     menu.sendAction(menu.getAction(), menu.getActionParameter())
 
@@ -86,7 +86,7 @@ def main():
                         client.connect(host='127.0.0.1', port=1883)
                     client.publish(sensorDataMQTTTopic, sensorData, 2)
                     time.sleep(0.05)
-                    #print(sensorData)
+                    print(sensorData)
 
                 #Process data from the menus
                 if menu.getSendActionFlag() == True:

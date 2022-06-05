@@ -74,9 +74,9 @@ class menuNavigation:
     def getActionParametersFromJSON(self, actionJSON):
         action = json.loads(actionJSON)
         self.setAction(action['Action_name'])
-        if action.has_key('Address'):
+        if 'Address' in action:
             self.setActionAdress(action['Address'])
-        if action.has_key('Report_interval'): 
+        if 'Report_interval' in action:
             self.setActionParameter(action['Report_interval'])
 
     def sendAction(self, action, actionParameter=""):

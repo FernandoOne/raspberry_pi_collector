@@ -29,7 +29,7 @@ class receiveData:
             sensorsData.append(sensorData)
         return sensorsData
 
-    #This function is used to convert the data obtained from the sensor to JSON format
+    #This method is used to convert the data obtained from the sensor to JSON format
     def convertSensorDataStringToJSON(self, dataString):
 
         dataList = dataString.split("=")
