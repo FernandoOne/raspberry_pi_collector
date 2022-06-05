@@ -33,21 +33,23 @@ def main():
 
 		if key == "1":
 
-			client.publish("intel_agri/actions", "FORM_NETWORK", 0)
+			client.publish("intel_agri/actions", "{\"Action_name\": \"FORM_NETWORK\"}", 0)
 
 		if key == "2":
 
-			client.publish("intel_agri/actions", "OPEN_NETWORK", 0)
+			client.publish("intel_agri/actions", "{\"Action_name\": \"OPEN_NETWORK\"}", 0)
 
 		if key == "3":
 
-			client.publish("intel_agri/actions", "CLOSE_NETWORK", 0)
+			client.publish("intel_agri/actions", "{\"Action_name\": \"CLOSE_NETWORK\"}", 0)
 
 		if key == "4":
 			
+			setReportIntervalAction="{\"Action_name\": \"SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Report_interval\": \"00006000\"}"
+
 			print("Enter interval:")
-			Interval = input()
-			client.publish("intel_agri/actions", "SET_REPORT_INTERVAL" + "," + Interval, 0)
+			#Interval = input()
+			client.publish("intel_agri/actions", setReportIntervalAction, 0)
 
 		if key == "5":
 

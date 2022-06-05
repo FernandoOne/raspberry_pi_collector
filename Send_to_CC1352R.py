@@ -1,5 +1,6 @@
 import serial
 import time
+import json
 
 #Macros for the characters used to navigate the menu
 RIGHT_CHARACTER = b'\033[C'
@@ -12,6 +13,7 @@ def writeSerialPort(character, serialPort):
 class menuNavigation:
     def __init__(self):
         self.action = ""
+        self.actionAdress = ""
         self.actionParameter = ""
         self.actionType = ""
         self.menuStep = -2
@@ -26,6 +28,10 @@ class menuNavigation:
         return self.action
     def setAction(self, string):
         self.action = string
+    def getActionAdress(self):
+        return self.actionAdress
+    def setActionAdress(self, string):
+        self.actionAdress = string        
     def getActionParameter(self):
         return self.actionParameter
     def setActionParameter(self, string):
@@ -64,6 +70,14 @@ class menuNavigation:
         self.backCounter = self.backCounter + 1
     def resetBackCounter(self):
         self.backCounter = 0 
+
+    def getActionParametersFromJSON(self, actionJSON):
+        action = json.loads(actionJSON)
+        self.setAction(action['Action_name'])
+        if action.has_key('Address'):
+            self.setActionAdress(action['Address'])
+        if action.has_key('Report_interval'): 
+            self.setActionParameter(action['Report_interval'])
 
     def sendAction(self, action, actionParameter=""):
         if "FORM_NETWORK" in action:
