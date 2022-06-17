@@ -59,6 +59,10 @@ client.loop_start()
 def main():
 
     serialString = ""  # Used to hold data coming over UART
+
+    menu.setActionName("FORM_NETWORK")
+    menu.sendAction()
+
     while 1:
 
         #Process the writing to the board

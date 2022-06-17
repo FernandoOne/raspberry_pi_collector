@@ -42,7 +42,7 @@ def main():
 
 		if key == "4":
 		
-			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0002\", \"Parameter\": \"00010000\"}"
+			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Parameter\": \"00010000\"}"
 			client.publish("intel_agri/actions", setReportIntervalAction, 0)	
 
 		if key == "5":
@@ -57,7 +57,7 @@ def main():
 
 		if key == "7":
 
-			setOpenValve="{\"Action_name\": \"SELECT_SENSOR_AND_SEND_TOGGLE\", \"Address\": \"0001\"}"
+			setOpenValve="{\"Action_name\": \"SELECT_SENSOR_AND_OPEN_VALVE\", \"Address\": \"0001\"}"
 			client.publish("intel_agri/actions", setOpenValve, 0)	
 
 		if key == "8":
