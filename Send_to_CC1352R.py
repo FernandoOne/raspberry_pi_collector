@@ -12,7 +12,7 @@ def writeSerialPort(character, serialPort):
 
 class menuNavigation:
     def __init__(self):
-        self.action = ""
+        self.actionName = ""
         self.actionAddress = ""
         self.actionParameter = ""
         self.actionType = ""
@@ -28,10 +28,10 @@ class menuNavigation:
         self.stepTwoAction = ""
         self.stepTwoActionParameter = ""
 
-    def getAction(self):
-        return self.action
-    def setAction(self, string):
-        self.action = string
+    def getActionName(self):
+        return self.actionName
+    def setActionName(self, string):
+        self.actionName = string
     def getActionAddress(self):
         return self.actionAddress
     def setActionAddress(self, string):
@@ -93,7 +93,7 @@ class menuNavigation:
 
     def getActionParametersFromJSON(self, actionJSON):
         action = json.loads(actionJSON)
-        self.setAction(action['Action_name'])
+        self.setActionName(action['Action_name'])
         if 'Address' in action:
             self.setActionAddress(action['Address'])
         if 'Parameter' in action:
@@ -102,52 +102,52 @@ class menuNavigation:
     def sendAction(self, action, actionAdress="", actionParameter=""):
         print(action)
         if action == "FORM_NETWORK":
-            self.setAction("FORM_NETWORK")
+            self.setActionName("FORM_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       FORM NWK      >")
         elif action == "OPEN_NETWORK":
-            self.setAction("OPEN_NETWORK")
+            self.setActionName("OPEN_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       OPEN NWK      >")
         elif action == "CLOSE_NETWORK":
-            self.setAction("CLOSE_NETWORK")
+            self.setActionName("CLOSE_NETWORK")
             self.setActionParameter("")
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       CLOSE NWK     >")
         elif action == "SELECT_SENSOR":
-            self.setAction("SELECT_SENSOR")
+            self.setActionName("SELECT_SENSOR")
             self.setActionParameter(actionParameter)
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SELECT SENSOR   >")            
         elif action == "SET_REPORT_INTERVAL":
-            self.setAction("SET_REPORT_INTERVAL")
+            self.setActionName("SET_REPORT_INTERVAL")
             self.setActionParameter(actionParameter)
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SET REPORT INTERVAL >")
         elif action == "SEND_TOOGLE":
-            self.setAction("SEND_TOOGLE")
+            self.setActionName("SEND_TOOGLE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SEND TOGGLE     >")
         elif action == "SEND_DISASSOCIATION":
-            self.setAction("SEND_DISASSOCIATION")
+            self.setActionName("SEND_DISASSOCIATION")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SEND DISASSOCIATION >")
         elif action == "OPEN_VALVE":
-            self.setAction("OPEN_VALVE")
+            self.setActionName("OPEN_VALVE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     OPEN VALVE      >")  
         elif action == "CLOSE_VALVE":
-            self.setAction("CLOSE_VALVE")
+            self.setActionName("CLOSE_VALVE")
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     CLOSE VALVE     >")
@@ -222,43 +222,43 @@ class menuNavigation:
                 self.resetBackCounter()
                 self.setMenuStep(0)
                 self.setAlreadySentFlag(False)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step -1")
             elif self.getMenuStep() == 0:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step 0")
             elif self.getMenuStep() == 1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(2)
                 self.setAlreadySentFlag(False)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step 1")
             elif self.getMenuStep() == 2:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step 2")
             elif self.getMenuStep() == 3:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(4)
                 self.setAlreadySentFlag(False)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step 3")
             elif self.getMenuStep() == 4:
                 for character in self.getActionParameter():
                     writeSerialPort(bytes(character, 'ascii'), serialPort)
                 self.setMenuStep(5)
                 self.setAlreadySentFlag(False)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step 4")
             elif self.getMenuStep() == 5:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(6)
                 self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                print(self.getAction())
+                print(self.getActionName())
                 print("It reached step 5")
                 if self.getSendTwoStepsActionFlag() == True:
                     print("Entr[o al if 1")

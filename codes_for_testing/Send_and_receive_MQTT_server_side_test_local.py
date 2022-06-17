@@ -55,7 +55,7 @@ def main():
 
 		if key == "6":
 	
-			setReportIntervalAction="{\"Action_name\": \"SET_REPORT_INTERVAL\", \"Parameter\": \"00006000\"}"
+			setReportIntervalAction="{\"Action_name\": \"SET_REPORT_INTERVAL\", \"Parameter\": \"00003000\"}"
 
 			#print("Enter interval:")
 			#Interval = input()
