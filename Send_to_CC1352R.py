@@ -25,7 +25,7 @@ class menuNavigation:
         self.backCounter = 0
         self.sendTwoStepsActionFlag = False
         self.sensorSelectedFlag = False
-        self.stepTwoAction = ""
+        self.twoStepsActionName = ""
         self.stepTwoActionParameter = ""
 
     def getActionName(self):
@@ -82,10 +82,10 @@ class menuNavigation:
         return self.sendTwoStepsActionFlag
     def setSendTwoStepsActionFlag(self, flag):
         self.sendTwoStepsActionFlag = flag
-    def setStepTwoAction(self, string):
-        self.stepTwoAction = string
-    def getStepTwoAction(self):
-        return self.stepTwoAction
+    def setTwoStepsActionName(self, string):
+        self.twoStepsActionName = string
+    def getTwoStepsActionName(self):
+        return self.twoStepsActionName
     def setStepTwoActionParameter(self, string):
         self.stepTwoActionParameter = string
     def getStepTwoActionParameter(self):
@@ -99,78 +99,66 @@ class menuNavigation:
         if 'Parameter' in action:
             self.setActionParameter(action['Parameter'])
 
-    def sendAction(self, action, actionAdress="", actionParameter=""):
-        print(action)
-        if action == "FORM_NETWORK":
-            self.setActionName("FORM_NETWORK")
-            self.setActionParameter("")
+    def sendAction(self):
+        if self.getActionName() == "FORM_NETWORK":
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       FORM NWK      >")
-        elif action == "OPEN_NETWORK":
-            self.setActionName("OPEN_NETWORK")
-            self.setActionParameter("")
+        elif self.getActionName() == "OPEN_NETWORK":
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       OPEN NWK      >")
-        elif action == "CLOSE_NETWORK":
-            self.setActionName("CLOSE_NETWORK")
-            self.setActionParameter("")
+        elif self.getActionName() == "CLOSE_NETWORK":
             self.setActionType("Normal")
             self.setEndOfStep0String("<   NETWORK ACTIONS   >")
             self.setEndOfStep2String("<       CLOSE NWK     >")
-        elif action == "SELECT_SENSOR":
-            self.setActionName("SELECT_SENSOR")
-            self.setActionParameter(actionParameter)
+        elif self.getActionName() == "SELECT_SENSOR":
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SELECT SENSOR   >")            
-        elif action == "SET_REPORT_INTERVAL":
-            self.setActionName("SET_REPORT_INTERVAL")
-            self.setActionParameter(actionParameter)
+        elif self.getActionName() == "SET_REPORT_INTERVAL":
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SET REPORT INTERVAL >")
-        elif action == "SEND_TOOGLE":
-            self.setActionName("SEND_TOOGLE")
+        elif self.getActionName() == "SEND_TOOGLE":
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SEND TOGGLE     >")
-        elif action == "SEND_DISASSOCIATION":
-            self.setActionName("SEND_DISASSOCIATION")
+        elif self.getActionName() == "SEND_DISASSOCIATION":
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SEND DISASSOCIATION >")
-        elif action == "OPEN_VALVE":
-            self.setActionName("OPEN_VALVE")
+        elif self.getActionName() == "OPEN_VALVE":
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     OPEN VALVE      >")  
-        elif action == "CLOSE_VALVE":
-            self.setActionName("CLOSE_VALVE")
+        elif self.getActionName() == "CLOSE_VALVE":
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     CLOSE VALVE     >")
-        elif action == "SELECT_SENSOR_AND_SET_REPORT_INTERVAL":
-            self.setAlreadySentFlag(False)
-            self.setMenuStep(-2)
+        elif self.getActionName() == "SELECT_SENSOR_AND_SET_REPORT_INTERVAL":
             self.setSendTwoStepsActionFlag(True)
-            self.sendTwoStepsAction(action, actionAdress, actionParameter)                     
+            self.setTwoStepsActionName("SELECT_SENSOR_AND_SET_REPORT_INTERVAL")
+            self.sendTwoStepsAction()                   
         else:
             return
         self.setSendActionFlag(True)
         self.setAlreadySentFlag(False) 
         self.setMenuStep(-2)
 
-    def sendTwoStepsAction(self, action="", actionAdress="", actionParameter=""):
-        if (self.getSensorSelectedFlag() == False):
-            self.setStepTwoAction("SET_REPORT_INTERVAL")
-            self.setStepTwoActionParameter(actionParameter)
-            self.sendAction("SELECT_SENSOR", "", actionAdress)
-        else:
-            self.setSendTwoStepsActionFlag(False)
-            self.setSensorSelectedFlag(False)
-            self.sendAction(self.getStepTwoAction(), "", self.getStepTwoActionParameter())
+    def sendTwoStepsAction(self):
+        if(self.getTwoStepsActionName() == "SELECT_SENSOR_AND_SET_REPORT_INTERVAL"):
+            if (self.getSensorSelectedFlag() == False):
+                self.setStepTwoActionParameter(self.getActionParameter())
+                self.setActionName("SELECT_SENSOR")
+                self.setActionParameter(self.getActionAddress())
+                self.sendAction()
+            else:
+                self.setSendTwoStepsActionFlag(False)
+                self.setSensorSelectedFlag(False)
+                self.setActionName("SET_REPORT_INTERVAL")
+                self.setActionParameter(self.getStepTwoActionParameter())
+                self.sendAction()
 
     def processWriting(self, serialPort):
         if self.getActionType() == "Normal":
@@ -261,11 +249,8 @@ class menuNavigation:
                 print(self.getActionName())
                 print("It reached step 5")
                 if self.getSendTwoStepsActionFlag() == True:
-                    print("Entr[o al if 1")
-                    if (self.getSensorSelectedFlag() == False):
-                        print("Entr[o al if 2")
-                        self.setSensorSelectedFlag(True)
-                        self.sendTwoStepsAction()
+                    self.setSensorSelectedFlag(True)
+                    self.sendTwoStepsAction()
             else:
                 pass   
  
