@@ -30,30 +30,36 @@ def main():
 
 		if key == "1":
 
-			client.publish("intel_agri/actions", "FORM_NETWORK", 0)
+			client.publish("intel_agri/actions", "{\"Action_name\": \"FORM_NETWORK\"}", 0)
 
 		if key == "2":
 
-			client.publish("intel_agri/actions", "OPEN_NETWORK", 0)
+			client.publish("intel_agri/actions", "{\"Action_name\": \"OPEN_NETWORK\"}", 0)
 
 		if key == "3":
 
-			client.publish("intel_agri/actions", "CLOSE_NETWORK", 0)
+			client.publish("intel_agri/actions", "{\"Action_name\": \"CLOSE_NETWORK\"}", 0)
 
 		if key == "4":
-			
-			print("Enter interval:")
-			Interval = input()
-			client.publish("intel_agri/actions", "SET_REPORT_INTERVAL" + "," + Interval, 0)
+		
+			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Parameter\": \"00006000\"}"
+
+			#print("Enter interval:")
+			#Interval = input()
+			client.publish("intel_agri/actions", setReportIntervalAction, 0)	
 
 		if key == "5":
 
-			Sensor = "0001"
-			client.publish("intel_agri/actions", "SELECT_SENSOR" + "," + Sensor, 0)		
+			selectSensor = "{\"Action_name\": \"SELECT_SENSOR\", \"Parameter\": \"0001\"}"
+			client.publish("intel_agri/actions", selectSensor, 0)	
 
 		if key == "6":
+	
+			setReportIntervalAction="{\"Action_name\": \"SET_REPORT_INTERVAL\", \"Parameter\": \"00006000\"}"
 
-			client.publish("intel_agri/actions", "SEND_TOOGLE", 0)
+			#print("Enter interval:")
+			#Interval = input()
+			client.publish("intel_agri/actions", setReportIntervalAction, 0)	
 
 		if key == "7":
 
