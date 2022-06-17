@@ -42,10 +42,7 @@ def main():
 
 		if key == "4":
 		
-			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0001\", \"Parameter\": \"00004000\"}"
-
-			#print("Enter interval:")
-			#Interval = input()
+			setReportIntervalAction="{\"Action_name\": \"SELECT_SENSOR_AND_SET_REPORT_INTERVAL\", \"Address\": \"0002\", \"Parameter\": \"00010000\"}"
 			client.publish("intel_agri/actions", setReportIntervalAction, 0)	
 
 		if key == "5":
@@ -56,18 +53,17 @@ def main():
 		if key == "6":
 	
 			setReportIntervalAction="{\"Action_name\": \"SET_REPORT_INTERVAL\", \"Parameter\": \"00003000\"}"
-
-			#print("Enter interval:")
-			#Interval = input()
 			client.publish("intel_agri/actions", setReportIntervalAction, 0)	
 
 		if key == "7":
 
-			client.publish("intel_agri/actions", "OPEN_VALVE", 0)
+			setOpenValve="{\"Action_name\": \"SELECT_SENSOR_AND_SEND_TOGGLE\", \"Address\": \"0001\"}"
+			client.publish("intel_agri/actions", setOpenValve, 0)	
 
 		if key == "8":
 
-			client.publish("intel_agri/actions", "CLOSE_VALVE", 0)				
+			setCloseValve="{\"Action_name\": \"SELECT_SENSOR_AND_CLOSE_VALVE\", \"Address\": \"0001\"}"
+			client.publish("intel_agri/actions", setCloseValve, 0)	
 
 if __name__ == '__main__':
 	main()

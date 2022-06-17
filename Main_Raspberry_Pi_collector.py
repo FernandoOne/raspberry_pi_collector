@@ -43,7 +43,7 @@ def on_disconnect(client, userdata, rc):
 
 def on_message(client, userdata, message):
     message = str(message.payload, encoding='ascii')
-    menu.getActionParametersFromJSON(message) 
+    menu.getActionParametersFromMQTTMessage(message) 
     menu.sendAction()
 
 client = mqtt.Client(client_id='RaspberryPi', clean_session=True)

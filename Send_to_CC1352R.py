@@ -91,7 +91,7 @@ class menuNavigation:
     def getStepTwoActionParameter(self):
         return self.stepTwoActionParameter
 
-    def getActionParametersFromJSON(self, actionJSON):
+    def getActionParametersFromMQTTMessage(self, actionJSON):
         action = json.loads(actionJSON)
         self.setActionName(action['Action_name'])
         if 'Address' in action:
@@ -120,7 +120,7 @@ class menuNavigation:
             self.setActionType("Interceptable")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("< SET REPORT INTERVAL >")
-        elif self.getActionName() == "SEND_TOOGLE":
+        elif self.getActionName() == "SEND_TOGGLE":
             self.setActionType("Normal")
             self.setEndOfStep0String("<         APP         >")
             self.setEndOfStep2String("<     SEND TOGGLE     >")
@@ -139,7 +139,23 @@ class menuNavigation:
         elif self.getActionName() == "SELECT_SENSOR_AND_SET_REPORT_INTERVAL":
             self.setSendTwoStepsActionFlag(True)
             self.setTwoStepsActionName("SELECT_SENSOR_AND_SET_REPORT_INTERVAL")
-            self.sendTwoStepsAction()                   
+            self.sendTwoStepsAction()
+        elif self.getActionName() == "SELECT_SENSOR_AND_SEND_TOGGLE":
+            self.setSendTwoStepsActionFlag(True)
+            self.setTwoStepsActionName("SELECT_SENSOR_AND_SEND_TOGGLE")
+            self.sendTwoStepsAction()
+        elif self.getActionName() == "SELECT_SENSOR_AND_SEND_DISASSOCIATION":
+            self.setSendTwoStepsActionFlag(True)
+            self.setTwoStepsActionName("SELECT_SENSOR_AND_SEND_DISASSOCIATION")
+            self.sendTwoStepsAction()
+        elif self.getActionName() == "SELECT_SENSOR_AND_OPEN_VALVE":
+            self.setSendTwoStepsActionFlag(True)
+            self.setTwoStepsActionName("SELECT_SENSOR_AND_OPEN_VALVE")
+            self.sendTwoStepsAction()
+        elif self.getActionName() == "SELECT_SENSOR_AND_CLOSE_VALVE":
+            self.setSendTwoStepsActionFlag(True)
+            self.setTwoStepsActionName("SELECT_SENSOR_AND_CLOSE_VALVE")
+            self.sendTwoStepsAction()
         else:
             return
         self.setSendActionFlag(True)
@@ -158,6 +174,46 @@ class menuNavigation:
                 self.setSensorSelectedFlag(False)
                 self.setActionName("SET_REPORT_INTERVAL")
                 self.setActionParameter(self.getStepTwoActionParameter())
+                self.sendAction()
+        if(self.getTwoStepsActionName() == "SELECT_SENSOR_AND_SEND_TOGGLE"):
+            if (self.getSensorSelectedFlag() == False):
+                self.setActionName("SELECT_SENSOR")
+                self.setActionParameter(self.getActionAddress())
+                self.sendAction()
+            else:
+                self.setSendTwoStepsActionFlag(False)
+                self.setSensorSelectedFlag(False)
+                self.setActionName("SEND_TOGGLE")
+                self.sendAction()
+        if(self.getTwoStepsActionName() == "SELECT_SENSOR_AND_SEND_DISASSOCIATION"):
+            if (self.getSensorSelectedFlag() == False):
+                self.setActionName("SELECT_SENSOR")
+                self.setActionParameter(self.getActionAddress())
+                self.sendAction()
+            else:
+                self.setSendTwoStepsActionFlag(False)
+                self.setSensorSelectedFlag(False)
+                self.setActionName("SEND_DISASSOCIATION")
+                self.sendAction()
+        if(self.getTwoStepsActionName() == "SELECT_SENSOR_AND_OPEN_VALVE"):
+            if (self.getSensorSelectedFlag() == False):
+                self.setActionName("SELECT_SENSOR")
+                self.setActionParameter(self.getActionAddress())
+                self.sendAction()
+            else:
+                self.setSendTwoStepsActionFlag(False)
+                self.setSensorSelectedFlag(False)
+                self.setActionName("OPEN_VALVE")
+                self.sendAction()
+        if(self.getTwoStepsActionName() == "SELECT_SENSOR_AND_CLOSE_VALVE"):
+            if (self.getSensorSelectedFlag() == False):
+                self.setActionName("SELECT_SENSOR")
+                self.setActionParameter(self.getActionAddress())
+                self.sendAction()
+            else:
+                self.setSendTwoStepsActionFlag(False)
+                self.setSensorSelectedFlag(False)
+                self.setActionName("CLOSE_VALVE")
                 self.sendAction()
 
     def processWriting(self, serialPort):
