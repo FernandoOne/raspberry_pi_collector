@@ -266,43 +266,36 @@ class menuNavigation:
                 self.resetBackCounter()
                 self.setMenuStep(0)
                 self.setAlreadySentFlag(False)
-                print(self.getActionName())
                 print("It reached step -1")
             elif self.getMenuStep() == 0:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                print(self.getActionName())
                 print("It reached step 0")
             elif self.getMenuStep() == 1:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(2)
                 self.setAlreadySentFlag(False)
-                print(self.getActionName())
                 print("It reached step 1")
             elif self.getMenuStep() == 2:
                 writeSerialPort(RIGHT_CHARACTER, serialPort)
                 self.setAlreadySentFlag(True)
-                print(self.getActionName())
                 print("It reached step 2")
             elif self.getMenuStep() == 3:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(4)
                 self.setAlreadySentFlag(False)
-                print(self.getActionName())
                 print("It reached step 3")
             elif self.getMenuStep() == 4:
                 for character in self.getActionParameter():
                     writeSerialPort(bytes(character, 'ascii'), serialPort)
                 self.setMenuStep(5)
                 self.setAlreadySentFlag(False)
-                print(self.getActionName())
                 print("It reached step 4")
             elif self.getMenuStep() == 5:
                 writeSerialPort(ENTER_CHARACTER, serialPort)
                 self.setMenuStep(6)
                 self.setAlreadySentFlag(False)
                 self.setSendActionFlag(False)
-                print(self.getActionName())
                 print("It reached step 5")
                 if self.getSendTwoStepsActionFlag() == True:
                     self.setSensorSelectedFlag(True)
